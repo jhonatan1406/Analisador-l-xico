@@ -83,7 +83,7 @@ make clean
 
 ## 👨‍💻 Autor
 
-**Jhonatan Almeida**
+**Jhonatan Almeida\n**
 **Laura**
 📘 Trabalho Prático 1 — Compiladores
 
