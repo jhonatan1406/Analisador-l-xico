@@ -1,12 +1,94 @@
-Analisador Léxico Lang2 (TP1)Este projeto contém um analisador léxico completo para a linguagem lang2, implementado em Java usando o gerador de lexer JFlex.Estrutura de Arquivoslang2-lexer/
+Perfeito — o conteúdo do seu README já está muito bom e bem estruturado. Abaixo está uma **versão revisada e formatada** em Markdown para ficar mais clara, profissional e bonita no GitHub:
+
+---
+
+# 🧩 Analisador Léxico — Lang2 (TP1)
+
+Este projeto implementa um **analisador léxico completo** para a linguagem **Lang2**, desenvolvido em **Java** utilizando o **gerador de lexer JFlex**.
+
+---
+
+## 📁 Estrutura de Arquivos
+
+```
+lang2-lexer/
 ├── src/
 │   └── lexer/
-│       ├── Lang2Lexer.jflex  (Definição do Lexer)
-│       ├── Main.java         (Driver CLI)
-│       └── Token.java        (Classe de Token)
+│       ├── Lang2Lexer.jflex   # Definição do Lexer
+│       ├── Main.java          # Programa principal (CLI)
+│       └── Token.java         # Classe que representa um Token
 ├── Makefile
-└── exemplo.lang2         (Arquivo de teste)
-RequisitosJava (JDK)JFlex (instalado e disponível no seu PATH como jflex)makeComo Compilar e ExecutarCompilar o Projeto:O Makefile automatiza todo o processo:Executa o JFlex para gerar src/lexer/Lang2Lexer.java.Compila todos os arquivos .java para o diretório bin/.Cria um JAR executável lexer.jar.make
-(ou make all)Executar o Analisador Léxico:Use o target run-lex do Makefile, especificando o arquivo de entrada com a variável FILE.make run-lex FILE=exemplo.lang2
-Isso é um atalho para o comando completo:java -jar lexer.jar -lex exemplo.lang2
-Limpar os Arquivos Gerados:Para remover o diretório bin/, o lexer.jar e o Lang2Lexer.java gerado:make clean
+└── exemplo.lang2              # Arquivo de teste
+```
+
+---
+
+## ⚙️ Requisitos
+
+Antes de executar o projeto, certifique-se de ter instalado:
+
+* **Java (JDK)**
+* **JFlex** (disponível no seu `PATH` como `jflex`)
+* **make**
+
+---
+
+## 🏗️ Como Compilar e Executar
+
+### 🔧 Compilar o Projeto
+
+O **Makefile** automatiza todo o processo:
+
+1. Executa o **JFlex** para gerar o arquivo `src/lexer/Lang2Lexer.java`.
+2. Compila todos os arquivos `.java` para o diretório `bin/`.
+3. Cria um **JAR executável** chamado `lexer.jar`.
+
+```bash
+make
+# ou
+make all
+```
+
+---
+
+### ▶️ Executar o Analisador Léxico
+
+Para rodar o analisador em um arquivo de entrada, use o target `run-lex`:
+
+```bash
+make run-lex FILE=exemplo.lang2
+```
+
+Esse comando é um atalho para:
+
+```bash
+java -jar lexer.jar -lex exemplo.lang2
+```
+
+---
+
+### 🧹 Limpar os Arquivos Gerados
+
+Para remover arquivos compilados (`bin/`), o `lexer.jar` e o `Lang2Lexer.java` gerado:
+
+```bash
+make clean
+```
+
+---
+
+## 🧠 Observações
+
+* O analisador foi desenvolvido para fins didáticos, seguindo as especificações da linguagem **Lang2**.
+* É possível ajustar o arquivo `.jflex` para suportar novos tokens ou regras léxicas.
+
+---
+
+## 👨‍💻 Autor
+
+**Jhonatan Figueiredo Almeida**
+📘 Trabalho Prático 1 — Compiladores
+
+---
+
+Quer que eu adicione um **exemplo de saída de tokens** (para mostrar como o analisador imprime o resultado)? Isso deixa o README ainda mais completo.
