@@ -1,6 +1,3 @@
-Perfeito — o conteúdo do seu README já está muito bom e bem estruturado. Abaixo está uma **versão revisada e formatada** em Markdown para ficar mais clara, profissional e bonita no GitHub:
-
----
 
 # 🧩 Analisador Léxico — Lang2 (TP1)
 
@@ -88,7 +85,3 @@ make clean
 
 **Jhonatan Figueiredo Almeida**
 📘 Trabalho Prático 1 — Compiladores
-
----
-
-Quer que eu adicione um **exemplo de saída de tokens** (para mostrar como o analisador imprime o resultado)? Isso deixa o README ainda mais completo.
