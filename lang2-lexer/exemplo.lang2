@@ -1,1 +1,4 @@
--- Exemplo de código lang2 (TP1)-- Testa IDs, TYIDs, Símbolos, Reservados, e Literaismain :: Void {x = 10;y = 1.5;z = .05;c1 = 'a';c2 = '\n';c3 = '\123';return;}{-Este é um comentárioem bloco.{- não aninhado -}Tudo bem.-}data Point {x: Int;y: Int;}fun :: Int -> Bool {if (x == 10 && y != 0) {return true;} else {return false;}}-- Erros léxicos (descomente para testar)-- 'abc'  -- char longo-- '      -- char nao terminado-- 1.2.3  -- float mal formado (vai pegar 1.2 e depois .3)-- $      -- caractere invalido-- {- comentario nao terminado
+ main :: Void {
+    x = 10;
+    return;
+}

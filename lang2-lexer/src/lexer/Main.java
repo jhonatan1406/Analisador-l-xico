@@ -33,7 +33,7 @@ public class Main {
             
             Token t;
             // 4. Ler e imprimir tokens até o fim do arquivo (EOF)
-            while ((t = lexer.nextToken()) != null) {
+            while ((t = lexer.yylex()) != null) {
                 System.out.println(t.toString());
             }
 
