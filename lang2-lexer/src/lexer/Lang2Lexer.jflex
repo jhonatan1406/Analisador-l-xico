@@ -19,12 +19,8 @@ import java.util.HashSet;
 %column
 %type Token
 
-// %{ ... %} insere este código na classe Java gerada
 %{
-    /**
-     * Exceção customizada para reportar erros léxicos
-     * com formatação (linha, coluna).
-     */
+
     public static class LexerException extends RuntimeException {
         public LexerException(int line, int column, String message) {
             // Adiciona +1 na linha e coluna pois JFlex é 0-based
@@ -32,10 +28,6 @@ import java.util.HashSet;
         }
     }
 
-    /**
-     * Conjunto de todas as palavras reservadas da linguagem lang2.
-     * Usado para diferenciar ID de RESERVED.
-     */
     private static final Set<String> KEYWORDS = new HashSet<>();
     static {
         // Comandos e Estruturas
@@ -62,25 +54,10 @@ import java.util.HashSet;
         KEYWORDS.add("null");
     }
 
-    /**
-     * Helper para criar um Token, ajustando linha/coluna para 1-based.
-     */
-    private Token makeToken(String type, String lexeme) {
-        // JFlex é 0-based (linha/coluna começam em 0)
-        // O requisito do TP é 1-based (começam em 1)
-        return new Token(yyline + 1, yycolumn + 1, type, lexeme);
+    private Token makeToken(String lexeme) {
+        return new Token(yyline + 1, yycolumn + 1, lexeme);
     }
 
-    /**
-     * Helper para processar identificadores.
-     * Verifica se o lexema é uma palavra reservada.
-     */
-    private Token handleIdentifier(String lexeme) {
-        if (KEYWORDS.contains(lexeme)) {
-            return makeToken("RESERVED", lexeme);
-        }
-        return makeToken("ID", lexeme);
-    }
 %}
 
 /* --- Seção 2: Definições de Macros (Expressões Regulares) --- */
@@ -131,13 +108,6 @@ TYID = [A-Z] [a-zA-Z0-9_]*
 
 %%
 
-/* --- Seção 3: Regras Léxicas --- */
-
-/*
- * As regras são definidas no estado padrão <YYINITIAL>
- * A ordem importa! JFlex usa "maior prefixo" (longest match).
- * Em caso de empate, a regra que aparece primeiro vence.
- */
 
 <YYINITIAL> {
     
@@ -155,46 +125,46 @@ TYID = [A-Z] [a-zA-Z0-9_]*
      * 4. Símbolos e Operadores
      * (Os mais longos devem vir primeiro)
      */
-    "::"                  { return makeToken("SYMBOL", "::"); }
-    "=="                  { return makeToken("SYMBOL", "=="); }
-    "!="                  { return makeToken("SYMBOL", "!="); }
-    "&&"                  { return makeToken("SYMBOL", "&&"); }
+    "::"                  { return makeToken("::"); }
+    "=="                  { return makeToken("=="); }
+    "!="                  { return makeToken("!="); }
+    "&&"                  { return makeToken("&&"); }
     
     // Símbolos simples (1 caractere)
-    "("                   { return makeToken("SYMBOL", "("); }
-    ")"                   { return makeToken("SYMBOL", ")"); }
-    "["                   { return makeToken("SYMBOL", "["); }
-    "]"                   { return makeToken("SYMBOL", "]"); }
-    "{"                   { return makeToken("SYMBOL", "{"); }
-    "}"                   { return makeToken("SYMBOL", "}"); }
-    ">"                   { return makeToken("SYMBOL", ">"); }
-    ";"                   { return makeToken("SYMBOL", ";"); }
-    ":"                   { return makeToken("SYMBOL", ":"); }
-    "."                   { return makeToken("SYMBOL", "."); }
-    ","                   { return makeToken("SYMBOL", ","); }
-    "="                   { return makeToken("SYMBOL", "="); }
-    "<"                   { return makeToken("SYMBOL", "<"); }
-    "+"                   { return makeToken("SYMBOL", "+"); }
-    "-"                   { return makeToken("SYMBOL", "-"); }
-    "*"                   { return makeToken("SYMBOL", "*"); }
-    "/"                   { return makeToken("SYMBOL", "/"); }
-    "%"                   { return makeToken("SYMBOL", "%"); }
-    "!"                   { return makeToken("SYMBOL", "!"); }
+    "("                   { return makeToken("("); }
+    ")"                   { return makeToken(")"); }
+    "["                   { return makeToken("["); }
+    "]"                   { return makeToken("]"); }
+    "{"                   { return makeToken("{"); }
+    "}"                   { return makeToken("}"); }
+    ">"                   { return makeToken(">"); }
+    ";"                   { return makeToken(";"); }
+    ":"                   { return makeToken(":"); }
+    "."                   { return makeToken("."); }
+    ","                   { return makeToken(","); }
+    "="                   { return makeToken("="); }
+    "<"                   { return makeToken("<"); }
+    "+"                   { return makeToken("+"); }
+    "-"                   { return makeToken("-"); }
+    "*"                   { return makeToken("*"); }
+    "/"                   { return makeToken("/"); }
+    "%"                   { return makeToken("%"); }
+    "!"                   { return makeToken("!"); }
     
     /*
      * 5. Literais
      * (FLOAT deve vir antes de INT para tratar casos como "1.0")
      */
-    {FLOAT}               { return makeToken("FLOAT", yytext()); }
-    {INT}                 { return makeToken("INT", yytext()); }
-    {CHAR}                { return makeToken("CHAR", yytext()); }
+    {FLOAT}               { return makeToken(yytext()); }
+    {INT}                 { return makeToken(yytext()); }
+    {CHAR}                { return makeToken(yytext()); }
 
     /*
      * 6. Identificadores (ID e TYID)
      * (ID usa o helper para checar se é Palavra Reservada)
      */
-    {ID}                  { return handleIdentifier(yytext()); }
-    {TYID}                { return makeToken("TYID", yytext()); }
+    {ID}                  { return makeToken(yytext()); }
+    {TYID}                { return makeToken(yytext()); }
 
     /*
      * 7. Tratamento de Erros para Literais CHAR mal formados

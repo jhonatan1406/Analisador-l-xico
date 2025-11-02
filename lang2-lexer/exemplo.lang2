@@ -1,4 +1,4 @@
- main :: Void {
-    x = 10;
-    return;
+main :: Void {
+  x = 10;
+  return;
 }
