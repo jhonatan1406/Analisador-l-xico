@@ -1,13 +1,13 @@
 class Chr a {
-  tychr :: a - > Char ;
+  tychr :: a -> Char ;
 }
 instance Chr for Int {
-  tychr v :: Int - > Char {
+  tychr v :: Int -> Char {
     return 'I';
   }
 }
 instance Chr for Bool {
-  tychr v :: Int - > Char {
+  tychr v :: Int -> Char {
     return 'B';
   }
  }

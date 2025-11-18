@@ -1,7 +1,3 @@
-/*
- * Especificação JFlex para o Analisador Léxico Lang2 (TP1)
- * Autor: Seu Nome / Matrícula
- */
 package lexer;
 
 import java.util.Set;
@@ -88,7 +84,7 @@ CHAR_ESCAPE_SIMPLE = \\ [ntbr'\" \\]
 // 2. Escapes octais: \ddd (ex: \065)
 CHAR_ESCAPE_OCTAL = \\ [0-9]{3}
 // 3. Qualquer outro caractere válido (que não seja ', \, ou quebra de linha)
-CHAR_REGULAR = [^ \\ ' \n \r]
+CHAR_REGULAR = [^ \\ ']
 // 4. O corpo do caractere
 CHAR_BODY = ( {CHAR_ESCAPE_SIMPLE} | {CHAR_ESCAPE_OCTAL} | {CHAR_REGULAR} )
 // 5. O literal CHAR completo
@@ -129,6 +125,17 @@ TYID = [A-Z] [a-zA-Z0-9_]*
     "=="                  { return makeToken("=="); }
     "!="                  { return makeToken("!="); }
     "&&"                  { return makeToken("&&"); }
+    "->"                  { return makeToken("->"); }
+
+        /*
+     * 5. Literais
+     * (FLOAT deve vir antes de INT para tratar casos como "1.0")
+     */
+    {FLOAT}               { return makeToken(yytext()); }
+    {INT}                 { return makeToken(yytext()); }
+    {CHAR}                { return makeToken(yytext()); }
+
+
     
     // Símbolos simples (1 caractere)
     "("                   { return makeToken("("); }
@@ -151,13 +158,7 @@ TYID = [A-Z] [a-zA-Z0-9_]*
     "%"                   { return makeToken("%"); }
     "!"                   { return makeToken("!"); }
     
-    /*
-     * 5. Literais
-     * (FLOAT deve vir antes de INT para tratar casos como "1.0")
-     */
-    {FLOAT}               { return makeToken(yytext()); }
-    {INT}                 { return makeToken(yytext()); }
-    {CHAR}                { return makeToken(yytext()); }
+
 
     /*
      * 6. Identificadores (ID e TYID)
@@ -177,10 +178,10 @@ TYID = [A-Z] [a-zA-Z0-9_]*
     \' \\ [^ntbr'\" \\ 0-9] [^\']* \' { throw new LexerException(yyline, yycolumn, "Sequência de escape inválida no char: " + yytext()); }
     // Char com octal incompleto (ex: '\01' ou '\0')
     \' \\ [0-9]{1,2} [^\'0-9] [^\']* \' { throw new LexerException(yyline, yycolumn, "Escape octal deve ter 3 dígitos: " + yytext()); }
-    // Char não terminado (pega ' no final da linha)
-    \' [^ \n \r]* {EOL}   { throw new LexerException(yyline, yycolumn, "Literal char não terminado na linha"); }
     // Char não terminado (pega ' solto)
     \'                    { throw new LexerException(yyline, yycolumn, "Literal char não terminado"); }
+
+
 }
 
 

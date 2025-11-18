@@ -1,13 +1,6 @@
-# Makefile para o Analisador Léxico Lang2 (TP1)
-# Autor: Jhonatan Figueiredo almeida / 20.1.8164
-# Autor: Laura /Matricula
 
-# --- Configuração ---
-
-# Ferramenta JFlex (assumido que está no PATH)
 JLEX = jflex
 
-# Compilador Java
 JC = javac
 JFLAGS = -g -Xlint:none
 
