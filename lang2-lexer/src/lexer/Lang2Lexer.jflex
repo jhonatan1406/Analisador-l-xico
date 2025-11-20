@@ -148,7 +148,6 @@ TYID = [A-Z] [a-zA-Z0-9_]*
     ">"                   { return makeToken(">"); }
     ";"                   { return makeToken(";"); }
     ":"                   { return makeToken(":"); }
-    "."                   { return makeToken("."); }
     ","                   { return makeToken(","); }
     "="                   { return makeToken("="); }
     "<"                   { return makeToken("<"); }
@@ -158,6 +157,7 @@ TYID = [A-Z] [a-zA-Z0-9_]*
     "/"                   { return makeToken("/"); }
     "%"                   { return makeToken("%"); }
     "!"                   { return makeToken("!"); }
+    "&"                   { return makeToken("&"); }
     
 
 
