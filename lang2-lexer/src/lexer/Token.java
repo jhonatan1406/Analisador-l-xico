@@ -1,13 +1,6 @@
-/*
- * Classe Token
- * Autor: Seu Nome / Matrícula
- */
+// Alunos: Jhonatan Figueiredo almeida - 20.1.8164 e Laura Lima Marques - 21.1.8022
 package lexer;
 
-/**
- * Representa um token léxico.
- * Armazena o tipo (classe), o lexema e as coordenadas (linha, coluna).
- */
 public class Token {
     public final int line;
     public final int column;
