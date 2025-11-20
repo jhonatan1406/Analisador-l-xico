@@ -8,7 +8,6 @@ import java.util.HashSet;
 
 /* --- Seção 1: Configurações e Código de Usuário --- */
 
-// Configurações do JFlex
 %class Lang2Lexer
 %public
 %unicode
@@ -20,7 +19,6 @@ import java.util.HashSet;
 
     public static class LexerException extends RuntimeException {
         public LexerException(int line, int column, String message) {
-            // Adiciona +1 na linha e coluna pois JFlex é 0-based
             super(String.format("LEX ERROR (%d,%d): %s", line + 1, column + 1, message));
         }
     }
@@ -100,7 +98,6 @@ TYID = [A-Z] [a-zA-Z0-9_]*
 
 
 /* --- Estados --- */
-// Estado para processar comentários em bloco {- ... -}
 %state BLOCK_COMMENT
 
 %%
@@ -115,12 +112,10 @@ TYID = [A-Z] [a-zA-Z0-9_]*
     {LINE_COMMENT}        { /* Ignorar */ }
     
     // 3. Início do Comentário em Bloco
-    // Transiciona para o estado BLOCK_COMMENT
     "{-"                  { yybegin(BLOCK_COMMENT); }
 
     /*
      * 4. Símbolos e Operadores
-     * (Os mais longos devem vir primeiro)
      */
     "::"                  { return makeToken("::"); }
     "=="                  { return makeToken("=="); }
@@ -128,9 +123,8 @@ TYID = [A-Z] [a-zA-Z0-9_]*
     "&&"                  { return makeToken("&&"); }
     "->"                  { return makeToken("->"); }
 
-        /*
+    /*
      * 5. Literais
-     * (FLOAT deve vir antes de INT para tratar casos como "1.0")
      */
     {FLOAT}               { return makeToken(yytext()); }
     {INT}                 { return makeToken(yytext()); }
@@ -163,7 +157,6 @@ TYID = [A-Z] [a-zA-Z0-9_]*
 
     /*
      * 6. Identificadores (ID e TYID)
-     * (ID usa o helper para checar se é Palavra Reservada)
      */
     {ID}                  { return makeToken(yytext()); }
     {TYID}                { return makeToken(yytext()); }
